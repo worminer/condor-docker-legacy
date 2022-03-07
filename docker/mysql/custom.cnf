@@ -1,0 +1,2 @@
+# use default mysql_native_password auth as php does not support it in 7.1
+default_authentication_plugin=mysql_native_password

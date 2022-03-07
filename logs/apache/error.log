@@ -1,0 +1,2 @@
+[Thu Mar 03 11:07:57.785996 2022] [proxy:error] [pid 9:tid 140114275231488] (111)Connection refused: AH00957: FCGI: attempt to connect to 192.168.10.12:6000 (192.168.10.12) failed
+[Thu Mar 03 11:07:57.786145 2022] [proxy_fcgi:error] [pid 9:tid 140114275231488] [client 127.0.0.1:55634] AH01079: failed to make connection to backend: 192.168.10.12

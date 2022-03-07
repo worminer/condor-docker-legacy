@@ -1,0 +1,38 @@
+version: '3.8'
+services:
+    php-apache-service:
+        container_name: condor-legacy-php-apache
+        build:
+            context: ./php-apache
+            dockerfile: Dockerfile
+        restart: always
+        volumes:
+            - ../../legacy:/var/www/html/
+            - ~/.ssh:/root/.ssh
+            - ../cache/.npm:/root/.npm
+            - ../cache/.composer:/root/.composer
+            - ../cache/.bower:/root/.cache/bower
+        ports:
+            - "2000:80"
+            - "3000:3000"
+        depends_on:
+            - mysql-service
+    mysql-service:
+        container_name: condor-legacy-mysql
+        build:
+            context: ./mysql
+            dockerfile: Dockerfile
+        command: mysqld --max-connections=175 --log-error=/var/lib/mysql/error.log --default-time-zone=+0:00 --general-log=1 --general-log-file=/tmp/query.log --slow-query-log=1 --long-query-time=5 --slow-query-log-file=/var/lib/mysql/slow.log --log-queries-not-using-indexes=1 --bind-address="0.0.0.0" --default-authentication-plugin=mysql_native_password --innodb-file-per-table=1 --sql-mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION
+        restart: always
+        volumes:
+            - ../logs/mysql:/var/log/mysql
+            - ../database:/var/lib/mysql
+            - "/etc/timezone:/etc/timezone:ro"
+            - "/etc/localtime:/etc/localtime:ro"
+        environment:
+            MYSQL_ROOT_PASSWORD: 'root'
+            MYSQL_DATABASE: 'test_database'
+            MYSQL_USER: 'martin'
+            MYSQL_PASSWORD: '123456'
+        ports:
+            - "9906:3306"
