@@ -51,7 +51,7 @@ RUN a2enmod rewrite.load
 # Disable default site
 RUN a2dissite 000-default
 # Enable sites
-RUN a2ensite b-bets 24bettle big5casino luckybull rembrandt sieger
+RUN a2ensite b-bets 24bettle big5casino luckybull rembrandt sieger gambeta10 tournaverse
 
 # Enable bower packages as root user
 RUN echo '{ "allow_root": true }' > /root/.bowerrc
